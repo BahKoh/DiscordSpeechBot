@@ -178,7 +178,7 @@ const _CMD_HELP        = PREFIX + 'help';
 const _CMD_JOIN        = PREFIX + 'join';
 const _CMD_LEAVE       = PREFIX + 'leave';
 const _CMD_PLAY        = PREFIX + 'play';
-const _CMD_stop       = PREFIX + 'stop';
+const _CMD_PAUSE       = PREFIX + 'pause';
 const _CMD_RESUME      = PREFIX + 'resume';
 const _CMD_SHUFFLE     = PREFIX + 'shuffle';
 const _CMD_FAVORITE    = PREFIX + 'favorite';
@@ -193,7 +193,7 @@ const _CMD_QUEUE       = PREFIX + 'list';
 const _CMD_DEBUG       = PREFIX + 'debug';
 const _CMD_TEST        = PREFIX + 'hello';
 const _CMD_LANG        = PREFIX + 'lang';
-const PLAY_CMDS = [_CMD_PLAY, _CMD_stop, _CMD_RESUME, _CMD_SHUFFLE, _CMD_SKIP, _CMD_GENRE, _CMD_GENRES, _CMD_RANDOM, _CMD_CLEAR, _CMD_QUEUE, _CMD_FAVORITE, _CMD_FAVORITES, _CMD_UNFAVORITE];
+const PLAY_CMDS = [_CMD_PLAY, _CMD_PAUSE, _CMD_RESUME, _CMD_SHUFFLE, _CMD_SKIP, _CMD_GENRE, _CMD_GENRES, _CMD_RANDOM, _CMD_CLEAR, _CMD_QUEUE, _CMD_FAVORITE, _CMD_FAVORITES, _CMD_UNFAVORITE];
 
 const EMOJI_GREEN_CIRCLE = '🟢'
 const EMOJI_RED_CIRCLE = '🔴'
@@ -286,7 +286,7 @@ function getHelpString() {
         out += 'beanbot help\n'
         out += 'beanbot play [random, favorites, <genre> or query]\n'
         out += 'beanbot skip\n'
-        out += 'beanbot stop/resume\n'
+        out += 'beanbot pause/resume\n'
         out += 'beanbot shuffle\n'
         out += 'beanbot genres\n'
         out += 'beanbot set favorite\n'
@@ -302,7 +302,7 @@ function getHelpString() {
         out += _CMD_PLAY + ' [query]\n'
         out += _CMD_GENRE + ' [name]\n'
         out += _CMD_RANDOM + '\n'
-        out += _CMD_stop + '/' + _CMD_RESUME + '\n'
+        out += _CMD_PAUSE + '/' + _CMD_RESUME + '\n'
         out += _CMD_SKIP + '\n'
         out += _CMD_SHUFFLE + '\n'
         out += _CMD_FAVORITE + '\n'
@@ -412,7 +412,7 @@ function process_commands_query(query, mapKey, userid) {
                 out = _CMD_GENRES;
                 break;
             case 'stop':
-                out = _CMD_stop;
+                out = _CMD_PAUSE;
                 break;
             case 'resume':
                 out = _CMD_RESUME;
@@ -536,12 +536,12 @@ async function music_message(message, mapKey) {
                 if (msg && msg.length) message.channel.send(msg);
             })
 
-        } else if (args[0] == _CMD_stop) {
+        } else if (args[0] == _CMD_PAUSE) {
 
-            stopMusic(mapKey, ()=>{
+            pauseMusic(mapKey, ()=>{
                 message.react(EMOJI_GREEN_CIRCLE)
             }, (msg)=>{
-                if (msg && msg.length) message.channel.send('Stopping....');
+                if (msg && msg.length) message.channel.send(msg);
             })
 
         } else if (args[0] == _CMD_RESUME) {
@@ -833,12 +833,12 @@ function skipMusic(mapKey, cbok, cberr) {
     }
 }
 
-function stopMusic(mapKey, cbok, cberr) {
+function pauseMusic(mapKey, cbok, cberr) {
     let val = guildMap.get(mapKey);
     if (!val.currentPlayingTitle) {
-        cberr('Nothing to stop');
+        cberr('Nothing to pause');
     } else {
-        if (val.musicDispatcher) val.musicDispatcher.stop();
+        if (val.musicDispatcher) val.musicDispatcher.pause();
         cbok()
     }
 }
