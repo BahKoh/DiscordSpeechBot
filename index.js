@@ -283,16 +283,16 @@ discordClient.on('message', async (msg) => {
 function getHelpString() {
     let out = '**VOICE COMMANDS:**\n'
         out += '```'
-        out += 'music help\n'
-        out += 'music play [random, favorites, <genre> or query]\n'
-        out += 'music skip\n'
-        out += 'music pause/resume\n'
-        out += 'music shuffle\n'
-        out += 'music genres\n'
-        out += 'music set favorite\n'
-        out += 'music favorites\n'
-        out += 'music list\n'
-        out += 'music clear list\n';
+        out += 'beanbot help\n'
+        out += 'beanbot play [random, favorites, <genre> or query]\n'
+        out += 'beanbot skip\n'
+        out += 'beanbot pause/resume\n'
+        out += 'beanbot shuffle\n'
+        out += 'beanbot genres\n'
+        out += 'beanbot set favorite\n'
+        out += 'beanbot favorites\n'
+        out += 'beanbot list\n'
+        out += 'beanbot clear list\n';
         out += '```'
 
         out += '**TEXT COMMANDS:**\n'
@@ -411,7 +411,7 @@ function process_commands_query(query, mapKey, userid) {
             case 'genres':
                 out = _CMD_GENRES;
                 break;
-            case 'pause':
+            case 'stop':
                 out = _CMD_PAUSE;
                 break;
             case 'resume':
