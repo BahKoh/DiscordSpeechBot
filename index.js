@@ -173,7 +173,7 @@ discordClient.on('ready', () => {
 })
 discordClient.login(DISCORD_TOK)
 
-const PREFIX = '!';
+const PREFIX = '*';
 const _CMD_HELP        = PREFIX + 'help';
 const _CMD_JOIN        = PREFIX + 'join';
 const _CMD_LEAVE       = PREFIX + 'leave';
@@ -392,7 +392,7 @@ function process_commands_query(query, mapKey, userid) {
 
     let out = null;
 
-    const regex = /^music ([a-zA-Z]+)(.+?)?$/;
+    const regex = /^beancurd ([a-zA-Z]+)(.+?)?$/;
     const m = query.toLowerCase().match(regex);
     if (m && m.length) {
         const cmd = (m[1]||'').trim();
