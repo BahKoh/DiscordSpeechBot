@@ -541,7 +541,7 @@ async function music_message(message, mapKey) {
             pauseMusic(mapKey, ()=>{
                 message.react(EMOJI_GREEN_CIRCLE)
             }, (msg)=>{
-                if (msg && msg.length) message.channel.send(msg);
+                if (msg && msg.length) message.channel.send('Stopping....');
             })
 
         } else if (args[0] == _CMD_RESUME) {
