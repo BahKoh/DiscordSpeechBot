@@ -173,7 +173,7 @@ discordClient.on('ready', () => {
 })
 discordClient.login(DISCORD_TOK)
 
-const PREFIX = '*';
+const PREFIX = '!';
 const _CMD_HELP        = PREFIX + 'help';
 const _CMD_JOIN        = PREFIX + 'join';
 const _CMD_LEAVE       = PREFIX + 'leave';
@@ -283,16 +283,16 @@ discordClient.on('message', async (msg) => {
 function getHelpString() {
     let out = '**VOICE COMMANDS:**\n'
         out += '```'
-        out += 'beanbot help\n'
-        out += 'beanbot play [random, favorites, <genre> or query]\n'
-        out += 'beanbot skip\n'
-        out += 'beanbot pause/resume\n'
-        out += 'beanbot shuffle\n'
-        out += 'beanbot genres\n'
-        out += 'beanbot set favorite\n'
-        out += 'beanbot favorites\n'
-        out += 'beanbot list\n'
-        out += 'beanbot clear list\n';
+        out += 'music help\n'
+        out += 'music play [random, favorites, <genre> or query]\n'
+        out += 'music skip\n'
+        out += 'music pause/resume\n'
+        out += 'music shuffle\n'
+        out += 'music genres\n'
+        out += 'music set favorite\n'
+        out += 'music favorites\n'
+        out += 'music list\n'
+        out += 'music clear list\n';
         out += '```'
 
         out += '**TEXT COMMANDS:**\n'
@@ -392,7 +392,7 @@ function process_commands_query(query, mapKey, userid) {
 
     let out = null;
 
-    const regex = /^china ([a-zA-Z]+)(.+?)?$/;
+    const regex = /^music ([a-zA-Z]+)(.+?)?$/;
     const m = query.toLowerCase().match(regex);
     if (m && m.length) {
         const cmd = (m[1]||'').trim();
@@ -411,7 +411,7 @@ function process_commands_query(query, mapKey, userid) {
             case 'genres':
                 out = _CMD_GENRES;
                 break;
-            case 'stop':
+            case 'pause':
                 out = _CMD_PAUSE;
                 break;
             case 'resume':
